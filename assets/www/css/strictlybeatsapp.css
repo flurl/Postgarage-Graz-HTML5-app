@@ -1,0 +1,29 @@
+.x-list.events-list .x-list-item {
+	display: block;
+}
+
+.x-list.events-list div.event-datetime {
+	display: block;
+}
+
+.x-list.events-list div.event-title {
+	display: block;
+	font-size: 150%;
+}
+
+.x-list.events-list div.event-short {
+	display: block;
+	font-style: italic;
+}
+
+.x-list.events-list div.event-bodytext {
+	display: block;
+}
+
+.x-list.events-list div.load-more {
+	display: block;
+	font-size: 150%;
+	text-align: center;
+	font-weight: bold;
+}
+*/

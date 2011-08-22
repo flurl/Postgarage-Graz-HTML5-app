@@ -1,0 +1,17 @@
+app.controllers.events = new Ext.Controller({
+    index: function(options) {
+    },
+    show: function(options) {
+    	console.log('show'+options.id);
+    	var id = parseInt(options.id),
+	        event = app.stores.events.getById(id);
+	    if (event) {
+	        app.views.eventDetail.updateWithRecord(event);
+	        app.views.viewport.setActiveItem(
+	            app.views.eventDetail, options.animation
+	        );
+	    }
+    },
+    /*edit: function(options) {
+    },*/
+});

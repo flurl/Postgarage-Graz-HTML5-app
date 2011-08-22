@@ -1,0 +1,75 @@
+app.views.EventDetail = Ext.extend(Ext.Panel, {
+    dockedItems: [{
+        xtype: 'toolbar', /**/
+        title: 'Event Detail',
+        items: [
+            {
+                text: 'Back',
+                ui: 'back',
+                listeners: {
+                    'tap': function () {
+                    	console.log('back tapped');
+                        Ext.dispatch({
+                            controller: app.controllers.events,
+                            action: 'index',
+                            animation: {type:'slide', direction:'right'}
+                        });
+                    }
+                }
+            },
+            {xtype:'spacer'},
+            {
+                id: 'edit',
+                text: 'Edit',
+                ui: 'action',
+                listeners: {
+                    'tap': function () {
+                        //Ext.dispatch({
+                        //    controller: app.controllers.contacts,
+                        //    action: 'edit',
+                        //    id: this.record.getId()
+                        //});
+                    }
+                }
+            }
+        ]
+    }],
+    styleHtmlContent:true,
+    scroll: 'vertical',
+    items: [
+    	{tpl:[
+    	    '<h1>{title}</h1>',
+    	    '<h2>{short}</h2>',
+    	    '<p>{bodytext}</p>',
+    	    '<p>{images}</p>',
+    	    '<p>{categories}</p>',
+    	    '<p>{files}</p>',
+    	    '<p>{link}</p>',
+	    ]},
+	    {tpl:[
+	        '<h4>Images</h4>',
+	        '<tpl for="files">',
+	        	'<tpl if="file != &quot;&quot;">',
+		        '<div><img src="http://postgarage.at/uploads/media/{file}"></div>',
+		        '</tpl>',
+		  	'</tpl>',
+    	]},
+    ],
+    
+    updateWithRecord: function(record) {
+    	console.log('len:'+record.data.files.length+'files:'+record.data.files);
+    	if (!(record.data.files instanceof Array)) {
+	    	var files = [];
+	    	Ext.each(record.data.files.split(','), function(file, idx) {
+	    		files.push({'file': file});
+	    	});
+	    	record.data.files = files;
+    	}
+    	Ext.each(this.items.items, function(item) {
+        	item.update(record.data);
+    	});
+	    var toolbar = this.getDockedItems()[0];
+	    toolbar.setTitle(record.get('datetime') + ' ' + record.get('title'));
+	    toolbar.getComponent('edit').record = record;
+	},
+});

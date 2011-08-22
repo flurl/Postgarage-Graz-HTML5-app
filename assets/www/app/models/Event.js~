@@ -1,0 +1,35 @@
+app.models.Event = Ext.regModel('app.models.Event', {
+    fields: [
+        {name: "id", type: "int"},
+        {name: "title", type: "string"},
+        {name: "datetime", type: "int"},
+        {name: "short", type: "string"},
+        {name: "bodytext", type: "string"},
+        {name: "images", type: "string", mapping: 'galleryimages'},
+        {name: "categories", type: "string"},
+        {name: "files", type: "string", mapping: 'news_files'},
+        {name: "link", type: "string"},
+    ],
+    
+   /* getDatetimeF: function() {
+    	return this.get('datetime');
+    },*/
+});
+
+/*app.stores.events = new Ext.data.Store({
+    model: "app.models.Event"
+});*/
+
+app.stores.events = new Ext.data.Store({
+	model: 'app.models.Event',
+	proxy: {
+	    type: 'ajax',
+	    url : 'http://postgarage.at/api/events.php?what=FORTH',
+	    reader: {
+	        type: 'json',
+	        root: 'events',
+	        /*sortInfo: { field: 'datetime', direction: 'ASC', }, 
+			fields: [ 'id', 'title', 'datetime', ],*/
+	    },
+	}
+});

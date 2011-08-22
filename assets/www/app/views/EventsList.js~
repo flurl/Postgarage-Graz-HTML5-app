@@ -1,0 +1,34 @@
+app.views.EventsList = Ext.extend(Ext.Panel, {
+    dockedItems: [{
+        xtype: 'toolbar',
+        title: 'Events'
+    }],
+    items: [{
+        xtype: 'list',
+        store: app.stores.events,
+        itemTpl: '{title} {datetime}',
+        onItemDisclosure: function (record) {
+            Ext.dispatch({
+                controller: app.controllers.events,
+                action: 'show',
+                id: record.getId()
+            });
+        },
+      	listeners:{
+      		itemtap: function(record){
+           		console.log('tap'+record)
+           		Ext.dispatch({
+	                controller: app.controllers.events,
+	                action: 'show',
+	                id: record.getId()
+	            });
+        	}
+   		}
+
+        
+    }],
+    initComponent: function() {
+        app.stores.events.load();
+        app.views.EventsList.superclass.initComponent.apply(this, arguments);
+    }
+});
