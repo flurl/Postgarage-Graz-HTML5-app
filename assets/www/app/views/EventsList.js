@@ -39,7 +39,7 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
 	                '<div class="event-datetime">{datetime:date("d.m.Y G:i")}</div>',
 	                '<div class="event-title">{title}</div>',
 	                '<div class="event-short">{short:ellipsis(100)}</div>',
-	                '<div class="event-bodytext">{[this.stripTags(values.bodytext, 100)]}</div>', 
+	                //'<div class="event-bodytext">{[this.stripTags(values.bodytext, 100)]}</div>', 
 	            '</div>',
 	        '</tpl>',
 	        '<div class="x-list-item load-more">Load '+app.CONF.store_page_size+' more...</div>',

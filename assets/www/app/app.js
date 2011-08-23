@@ -59,6 +59,7 @@ Ext.regApplication('app', {
 		            action: 'index',
 		            animation: {type:'slide', direction:'right'}
 		        });
+		        
         document.addEventListener('backbutton', app.handleBackButton, true);
     },
     
@@ -213,7 +214,8 @@ Ext.regApplication('app', {
             'sencha': {id: 'default', name: 'Sencha', file: 'sencha-touch.css'},
             'apple': {id: 'apple', name: 'Cupertino', file: 'apple.css'},
             'android': {id: 'android', name: 'Mountain View', file: 'android.css'},
-            'blackberry': {id: 'blackberry', name: 'Toronto', file: 'bb6.css'}
+            'blackberry': {id: 'blackberry', name: 'Toronto', file: 'bb6.css'},
+            'postgarage': {id: 'postgarage', name: 'Postgarage', file: 'postgarage.css'},
      },
 
 
@@ -308,6 +310,18 @@ Ext.regApplication('app', {
 	                    	app.hideActionsheet();
 	                    	app.updateConfig({theme: 'sencha'});
 	                    	app.appendStyleSheet("lib/resources/css/" + app.themesData['sencha'].file, function(sheet) {
+	                            app.setActiveSheet(sheet);
+	                        });
+	                    }
+	                },
+		        },
+		        {
+		            text: 'Postgarage Theme',
+		            listeners: {
+	                    'tap': function(){
+	                    	app.hideActionsheet();
+	                    	app.updateConfig({theme: 'postgarage'});
+	                    	app.appendStyleSheet("lib/resources/css/" + app.themesData['postgarage'].file, function(sheet) {
 	                            app.setActiveSheet(sheet);
 	                        });
 	                    }

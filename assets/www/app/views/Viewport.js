@@ -18,6 +18,13 @@
 	        //this.doComponentLayout();
 	    },
 	    
+	    listeners: {
+			orientationchange: function(){
+				window.scrollTo(0,0);
+				app.views.eventDetail.doComponentLayout();  
+		    },
+		}, 
+	    
 	    setupLayout: function() {
 	    	//console.log('items: '+var_dump(this.items));
 	       	

@@ -1,0 +1,41 @@
+$include-highlights: false;
+$include-border-radius: false;
+
+// Let's start with the basics
+$base-color: #987641;
+$active-color: #DDC392;
+$base-gradient: 'flat';
+$page-bg-color: $active-color;
+
+// Buttons
+$button-gradient: 'bevel';
+
+// Lists
+$list-bg-color: #eee;
+$list-color: #333;
+$list-pressed-color: #ddd;
+$list-active-gradient: 'recessed';
+$list-header-bg-color: #999;
+$list-header-gradient: 'bevel';
+
+// Tabs
+$tabs_dark_color: #000;
+
+@import 'sencha-touch/default/all';
+
+@include sencha-panel;
+@include sencha-buttons;
+@include sencha-sheet;
+@include sencha-picker;
+@include sencha-tabs;
+@include sencha-toolbar;
+@include sencha-toolbar-forms;
+@include sencha-carousel;
+@include sencha-indexbar;
+@include sencha-list;
+@include sencha-list-paging;
+@include sencha-list-pullrefresh;
+@include sencha-layout;
+@include sencha-form;
+@include sencha-msgbox;
+@include sencha-loading-spinner;

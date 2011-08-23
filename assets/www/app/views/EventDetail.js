@@ -64,12 +64,6 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     	]},*/
     ],
     
-    /*listeners: {
-    	'activate': function() {
-    		console.log('EventDetail activate event');
-    	}
-    },*/
-    
     initComponent: function () {
     	console.log('EventDetail.initComponent');
     	app.views.EventDetail.superclass.initComponent.apply(this, arguments);
@@ -208,15 +202,19 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 	    		console.log('flyerBtnContainer available');
 	    		if (this.getComponent('flyerBtnContainer').isVisible()) console.log('and it is visible');
  	    	} else console.log('flyerBtnContainer not available');
+	    	console.log('record title: '+record.data.title);
 	    	
 			this.doComponentLayout();
+			//sencha bug? according to the docs, doComponentLayout should call doLayout()
+			//but without this explicit call, the flyer buttons were not visible, after returning from the image view
 			this.doLayout();
+
 		}
     	
     	console.log('BP2');
 	    var toolbar = this.getDockedItems()[0];
-	    //toolbar.setTitle(record.get('datetime') + ' ' + record.get('title'));
-	    toolbar.getComponent('shareButton').record = record;
+	    toolbar.setTitle(Ext.util.Format.ellipsis(record.get('title'), 20));
+	    //toolbar.getComponent('shareButton').record = record;
 	    console.log('BP3');
 	},
 });
