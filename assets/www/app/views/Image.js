@@ -8,29 +8,8 @@ app.views.Image = Ext.extend(Ext.Panel, {
     padding: 0,
     bodyPadding: 0,
     cls: 'image',
-    /*dockedItems: [{
-        xtype: 'toolbar',
-        title: 'Image',
-        items: [
-            {
-                text: 'Back',
-                ui: 'back',
-                listeners: {
-                    'tap': function(){
-                    	app.viewstack.pop();
-                    },
-                },
-            },
-    	]
-    }],*/
     html: '<div id="image_container"></div>',
-   /* items: [
-	    {tpl:[
-	        '<div id="image_container"><img src="{image}"></div>',
-    	]},
-    ],*/
-    
-    listeners: {
+	listeners: {
     	'deactivate': function() {
     		console.log('Image deactivate event');
     		this.hideLoadingMask();
@@ -102,11 +81,7 @@ app.views.Image = Ext.extend(Ext.Panel, {
     	
     	img.src = image;
     	
-    	this.scroller.scrollTo({x:0,y:0}, false);
-    	
-    	/*Ext.each(this.items.items, function(item) {
-        	item.update({'image': image});
-    	});*/
+    	this.scroller.scrollTo({x:0,y:0}, false);    	
 	},
 	
 	loadingMask: null,

@@ -25,7 +25,6 @@ app.models.Config = Ext.regModel('app.models.Config', {
 
 app.stores.config = new Ext.data.Store({
 	model: 'app.models.Config',
-	//clearOnPageLoad: false,
 });
 
 

@@ -3,31 +3,12 @@
 	app.views.Viewport = Ext.extend(Ext.Panel, {
 	    fullscreen: true,
 		cls: 'viewport',
-	    initComponent: function() {
-	    	console.log('viewport initComponent '+window['app'].views.eventsList);
-	    	//this.removeAll();
-	        
-	        
+	    initComponent: function() {  
 		    this.setupLayout();
-		    
-	        console.log('viewport initComponent 4');
         	app.views.Viewport.superclass.initComponent.apply(this, arguments);
-	        console.log('viewport initComponent 5');
-	        
-	        
-	        //this.doComponentLayout();
 	    },
 	    
-	    listeners: {
-			orientationchange: function(){
-				window.scrollTo(0,0);
-				app.views.eventDetail.doComponentLayout();  
-		    },
-		}, 
-	    
 	    setupLayout: function() {
-	    	//console.log('items: '+var_dump(this.items));
-	       	
 	       	if (this.items) {
 	       		this.removeAll(true);
 	       	}
@@ -38,8 +19,6 @@
 	            eventDetail: new app.views.EventDetail(),
 	            image: new app.views.Image(),
 	        });
-	       	
-	       	
 	       		    
 	    	//Big screen layout
 	        if (app.isBigScreen()) {

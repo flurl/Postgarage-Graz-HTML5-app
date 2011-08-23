@@ -8,41 +8,7 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     padding: 0,
     bodyPadding: 0,
 	cls: 'eventDetail',
-	/*dockedItems: [{
-        xtype: 'toolbar',
-        title: 'Event Detail',
-        items: [
-            {
-            	id: 'backButton',
-                text: 'Back',
-                ui: 'back',
-                listeners: {
-                    'tap': function(){app.viewstack.pop();}
-                },
-            },
-            {xtype:'spacer'},
-            {
-            	id: 'shareButton',
-                text: 'Share',
-                ui: 'action',
-                listeners: {
-                    'tap': function () {
-						app.showActionsheet(app.views.eventDetail.actionSheet);
-                    }
-                }
-            }
-        ]
-    }],*/
-    /*listeners: {
-    	afterrender: {
-            fn: function () {
-                this.addDocked([{
-                    xtype: 'toolbar',
-                    title: 'Hello World'
-                }]);
-            }
-        }
-    },*/
+
     styleHtmlContent:true,
     scroll: 'vertical',
     items: [
@@ -55,13 +21,6 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     	    '<p>{files}</p>',
     	    '<p>{link}</p>',
 	    ]},
-	    /*{tpl:[
-	        '<tpl for="files">',
-	        	'<tpl if="file != &quot;&quot;">',
-		        '<div><button>Flyer</button><img src="http://postgarage.at/uploads/media/{file}"></div>',
-		        '</tpl>',
-		  	'</tpl>',
-    	]},*/
     ],
     
     initComponent: function () {
@@ -114,12 +73,9 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 	    items: [
 	        {
 	            text: 'Share',
-	            //ui  : 'decline',
 	            listeners: {
                     'tap': function(){
-                    	//console.log('share: '+var_dump(window.plugins.share.show));
                     	var currData = app.views.eventDetail.currentRecord.data;
-                    	console.log('share: '+var_dump(currData, 2));
                     	window.plugins.share.show(
                     		{subject: currData.title, text: encodeURI(currData.link)}, 
                     		function(args){}, 
@@ -142,8 +98,6 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     currentRecord: undefined,
     
     updateWithRecord: function(record) {
-    	console.log('len:'+record.data.files.length+'files:'+record.data.files);
-    	
     	app.views.eventDetail.currentRecord = record;
     	
     	//create array from images string
@@ -157,15 +111,12 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 	    	record.data.files = files;
     	}
     	
-    	console.log('BP1');
-    	
     	if (this.getComponent('flyerBtnContainer')) {
     		console.log('removing flyerBtnContainer');
     		this.remove('flyerBtnContainer');
     	}
     	
     	Ext.each(this.items.items, function(item) {
-    		console.log('BP1.5'+item);
         	item.update(record.data);
     	});
     	
@@ -176,7 +127,6 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 				id: 'flyerBtnContainer',
 				layout: {type: 'hbox', align: 'left'},
 			});
-			//this.add(flyerBtnContainer);
 			
 			//... and add the flyer buttons
 			Ext.each(record.data.files, function(file, idx){
@@ -193,17 +143,8 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 					
 			});
 			
-			
-			//flyerBtnContainer.rendered = false;
 			this.add(flyerBtnContainer);
-			
-			
-			if (this.getComponent('flyerBtnContainer')) {
-	    		console.log('flyerBtnContainer available');
-	    		if (this.getComponent('flyerBtnContainer').isVisible()) console.log('and it is visible');
- 	    	} else console.log('flyerBtnContainer not available');
-	    	console.log('record title: '+record.data.title);
-	    	
+				    	
 			this.doComponentLayout();
 			//sencha bug? according to the docs, doComponentLayout should call doLayout()
 			//but without this explicit call, the flyer buttons were not visible, after returning from the image view
@@ -211,10 +152,7 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 
 		}
     	
-    	console.log('BP2');
 	    var toolbar = this.getDockedItems()[0];
 	    toolbar.setTitle(Ext.util.Format.ellipsis(record.get('title'), 20));
-	    //toolbar.getComponent('shareButton').record = record;
-	    console.log('BP3');
 	},
 });

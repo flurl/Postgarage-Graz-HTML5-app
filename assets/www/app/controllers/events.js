@@ -7,11 +7,9 @@ app.controllers.events = new Ext.Controller({
 	    }
     },
     show: function(options) {
-    	console.log('show'+options.id);
     	var id = parseInt(options.id),
 	        event = app.stores.events.getById(id);
 	    if (event) {
-	    	console.log('event available');
 	        app.views.eventDetail.updateWithRecord(event);
 	        if (!app.isBigScreen()) {
 		 		var container = app.views.viewport;
@@ -22,7 +20,6 @@ app.controllers.events = new Ext.Controller({
 	    }
     },
     showImage: function(options) {
-    	console.log('showImage: '+options.image);
     	var img = options.image;
     	app.views.image.updateImage(img);
     	if (!app.isBigScreen()) {
