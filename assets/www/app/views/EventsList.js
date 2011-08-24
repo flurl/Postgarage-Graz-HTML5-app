@@ -73,7 +73,7 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
     
     initComponent: function() {
     	console.log('EventsList.initComponent');
-        app.stores.events.load();
+        //app.stores.events.load();
         app.views.EventsList.superclass.initComponent.apply(this, arguments);
         
         //add the docked items here and not as config option

@@ -33,6 +33,8 @@ Ext.regApplication('app', {
 		            animation: {type:'slide', direction:'right'}
 		        });
 		        
+		app.stores.events.load();
+		
         document.addEventListener('backbutton', app.handleBackButton, true);
     },
     
@@ -166,7 +168,9 @@ Ext.regApplication('app', {
             'blackberry': {id: 'blackberry', name: 'Toronto', file: 'bb6.css'},
             'postgarage': {id: 'postgarage', name: 'Postgarage', file: 'postgarage.css'},
      },
-
+     
+     
+     
 
 	/*********************
 	* Global action sheets

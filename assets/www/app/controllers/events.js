@@ -8,7 +8,7 @@ app.controllers.events = new Ext.Controller({
     },
     show: function(options) {
     	var id = parseInt(options.id),
-	        event = app.stores.events.getById(id);
+	        event = app.views.eventsList.items.items[0].getStore().getById(id);
 	    if (event) {
 	        app.views.eventDetail.updateWithRecord(event);
 	        if (!app.isBigScreen()) {
