@@ -7026,8 +7026,7 @@ Ext.data.Store = Ext.extend(Ext.data.AbstractStore, {
     
     onProxyLoad: function(operation) {
         var records = operation.getRecords();
-        
-        this.loadRecords(records, operation.addRecords);
+       	this.loadRecords(records, operation.addRecords);
         this.loading = false;
         this.fireEvent('load', this, records, operation.wasSuccessful());
         
@@ -8736,6 +8735,10 @@ Ext.data.AjaxProxy = Ext.extend(Ext.data.ServerProxy, {
                 
                 operation.setCompleted();
                 operation.setSuccessful();
+                
+                if (typeof callback == 'function') {
+	                callback.call(scope || me, operation);
+	            }
             } else {
                 me.fireEvent('exception', this, response, operation);
                 
@@ -8744,9 +8747,7 @@ Ext.data.AjaxProxy = Ext.extend(Ext.data.ServerProxy, {
             }
             
             
-            if (typeof callback == 'function') {
-                callback.call(scope || me, operation);
-            }
+            
             
             me.afterRequest(request, true);
         };
@@ -17495,9 +17496,15 @@ Ext.data.Connection = Ext.extend(Ext.util.Observable, {
     
     abort : function(r) {
         if (r && this.isLoading(r)) {
+        	console.log('abort '+var_dump(r, 2));
+        	console.log('abort '+var_dump(request, 2));
+        	//sencha bug??? request is undefined
             if (!request.timedout) {
                 request.aborted = true;
             }
+            /*if (!r.timedout) {
+                r.aborted = true;
+            }*/
             
             r.xhr.abort();
         }
