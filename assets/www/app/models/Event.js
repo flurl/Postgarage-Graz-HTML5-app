@@ -37,6 +37,13 @@ app.stores.localEvents.on('load', function (store) {
     store.snapshot = store.data;
 });
 
+app.stores.localEvents.addListener('beforesync', function(options) {
+	//save the date as timestamp
+	Ext.each(options.create, function(item) {
+		item.data.datetime = item.data.datetime.format('U');
+	});
+});
+
 
 
 /**************
