@@ -30,15 +30,11 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
 	    componentCls: 'x-list events-list',
       	listeners:{
       		itemtap: function(view, index, item, e){
-      			console.log('dv itemtap');
       			var store = view.getStore();
       			//last item tapped => load more events
       			if (store.getCount() == index) {
-      				console.log('dv itemtap 2');
       				store.nextPage();
       			} else {
-      				console.log('dv itemtap 3');
-	           		console.log('tap'+store.getAt(index).data.id)
 		            app.viewstack.push('show', {id: view.getStore().getAt(index).data.id});
 		        }
         	},
@@ -49,14 +45,9 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
     ],
     
     listeners: {
-    	'activate': function() {
-    		console.log('EventList activate event');
-    	},
     	afterrender: function() {
-    		console.log('afterrender');
     		//in bigscreen layout select the first entry to populate detail view
     		if (app.isBigScreen()) {
-    			console.log('afterrender2');
     			var dv = this.getComponent('eventsListDataView');
     			var store = dv.getStore();
     			var listener = function() {
@@ -74,8 +65,6 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
     
     
     initComponent: function() {
-    	console.log('EventsList.initComponent');
-        //app.stores.events.load();
         app.views.EventsList.superclass.initComponent.apply(this, arguments);
         
         //add the docked items here and not as config option
@@ -98,9 +87,6 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
 	            }
 	        ],
 	    }]);
-        
-        console.log('EventsList.initComponent end');
-
     },
     
 });
