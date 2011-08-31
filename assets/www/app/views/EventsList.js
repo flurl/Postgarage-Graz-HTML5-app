@@ -54,12 +54,14 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
     	},
     	afterrender: function() {
     		console.log('afterrender');
+    		//in bigscreen layout select the first entry to populate detail view
     		if (app.isBigScreen()) {
     			console.log('afterrender2');
     			var dv = this.getComponent('eventsListDataView');
     			var store = dv.getStore();
     			var listener = function() {
     				dv.fireEvent('itemtap', dv, 0);
+    				dv.getSelectionModel().select(0, true)
     				store.removeListener('load', listener)
     			}
     			store.addListener('load', listener);
