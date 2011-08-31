@@ -71,12 +71,14 @@ app.stores.events = new Ext.data.Store({
 		        console.log("I think we are offline");
 		        var store = app.stores.localEvents;
 		        var dv = app.views.eventsList.getComponent('eventsListDataView');
-		        dv.bindStore(store);		        
-    			var listener = function() {
-    				app.views.eventsList.selectItem(0);
-    				store.removeListener('load', listener)
-    			}
-    			store.addListener('load', listener);
+		        dv.bindStore(store);
+		        if (app.isBigScreen()) {		        
+	    			var listener = function() {
+	    				app.views.eventsList.selectItem(0);
+	    				store.removeListener('load', listener)
+	    			}
+	    			store.addListener('load', listener);
+	    		}
 		        store.load();
 		        
 		        //offline indicator
