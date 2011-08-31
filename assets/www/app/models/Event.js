@@ -40,7 +40,11 @@ app.stores.localEvents.on('load', function (store) {
 app.stores.localEvents.addListener('beforesync', function(options) {
 	//save the date as timestamp
 	Ext.each(options.create, function(item) {
-		item.data.datetime = item.data.datetime.format('U');
+		try {
+			item.data.datetime = item.data.datetime.format('U');
+		} catch(e) {
+      		//there's no method 'format'? probably datetime is already a timestamp
+		}
 	});
 });
 
