@@ -51,8 +51,7 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
     			var dv = this.getComponent('eventsListDataView');
     			var store = dv.getStore();
     			var listener = function() {
-    				dv.fireEvent('itemtap', dv, 0);
-    				dv.getSelectionModel().select(0, true)
+    				app.views.eventsList.selectItem(0);
     				store.removeListener('load', listener)
     			}
     			store.addListener('load', listener);
@@ -87,6 +86,18 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
 	            }
 	        ],
 	    }]);
+    },
+    
+    
+    selectItem: function(index) {
+    	var dv = this.getComponent('eventsListDataView');
+    	dv.fireEvent('itemtap', dv, 0);
+		
+		//if the app started in offline mode, this call fails for god knows what reason
+		//when switching to online. Hence the try
+		try {
+			dv.getSelectionModel().select(0, true)
+		} catch(e) {}
     },
     
 });
