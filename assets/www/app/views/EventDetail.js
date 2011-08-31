@@ -15,16 +15,17 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     	{tpl:[
     	    '<h1>{title}</h1>',
     	    '<h2>{short}</h2>',
+    	    '<p>{admission}</p>',
     	    '<p>{bodytext}</p>',
-    	    '<p>{images}</p>',
-    	    '<p>{categories}</p>',
-    	    '<p>{files}</p>',
-    	    '<p>{link}</p>',
+    	    //'<p>{images}</p>',
+    	    //'<p>{categories}</p>',
+    	    '<p>{additional_info}</p>',
+    	    //'<p>{files}</p>',
+    	    //'<p>{link}</p>',
 	    ]},
     ],
     
     initComponent: function () {
-    	console.log('EventDetail.initComponent');
     	app.views.EventDetail.superclass.initComponent.apply(this, arguments);
     	
     	//add the docked items here and not as config option
@@ -61,7 +62,6 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     	} else {
     		//this.getDockedItems()[0].getComponent('backButton').show();
     	}
-    	console.log('EventDetail.initComponent end');
 	},
 	
 	
@@ -112,10 +112,8 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     	}
     	
     	if (this.getComponent('flyerBtnContainer')) {
-    		console.log('removing flyerBtnContainer');
     		this.remove('flyerBtnContainer');
     	}
-    	
     	Ext.each(this.items.items, function(item) {
         	item.update(record.data);
     	});
@@ -131,7 +129,6 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 			//... and add the flyer buttons
 			Ext.each(record.data.files, function(file, idx){
 				var file = file.file;
-				console.log('file: '+file+'***'+file.file);
 				flyerBtnContainer.add({
 					xtype: 'button', 
 					text: 'Flyer',

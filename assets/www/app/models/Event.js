@@ -5,6 +5,8 @@ app.models.Event = Ext.regModel('app.models.Event', {
         {name: 'datetime', type: 'date', dateFormat: 'timestamp'},
         {name: 'short', type: 'string'},
         {name: 'bodytext', type: 'string'},
+        {name: 'additional_info', type: 'string'},
+        {name: 'admission', type: 'string'},
         {name: 'images', type: 'string', mapping: 'galleryimages'},
         {name: 'categories', type: 'string'},
         {name: 'files', type: 'string', mapping: 'news_files'},
