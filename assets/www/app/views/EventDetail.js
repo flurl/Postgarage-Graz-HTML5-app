@@ -151,5 +151,7 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     	
 	    var toolbar = this.getDockedItems()[0];
 	    toolbar.setTitle(Ext.util.Format.ellipsis(record.get('title'), 20));
+	    
+	    this.scroller.scrollTo({'x': 0, 'y': 0}, true);
 	},
 });
