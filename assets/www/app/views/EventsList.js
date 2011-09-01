@@ -11,7 +11,7 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
         tpl: new Ext.XTemplate(
 	        '<tpl for=".">',
 	            '<div class="x-list-item">',
-	                '<div class="event-datetime">{datetime:date("d.m.Y G:i")}</div>',
+	                '<div class="event-datetime">{datetime:date("D, d.m.Y G:i")}</div>',
 	                '<div class="event-title">{title}</div>',
 	                '<div class="event-short">{short:ellipsis(100)}</div>',
 	                //'<div class="event-bodytext">{[this.stripTags(values.bodytext, 100)]}</div>', 

@@ -13,6 +13,7 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
     scroll: 'vertical',
     items: [
     	{tpl:[
+    		'<h3>{datetime:date("l, d.m.Y G:i")}</h3>',
     	    '<h1>{title}</h1>',
     	    '<h2>{short}</h2>',
     	    '<p>{admission}</p>',
