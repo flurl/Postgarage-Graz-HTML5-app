@@ -17,7 +17,7 @@ app.models.Config = Ext.regModel('app.models.Config', {
 	],
 	proxy: {
 	    type: 'localstorage',
-		id  : 'strictly.beats-config',
+		id  : 'postgarageevents-config',
 		idProperty: 'id',
 	}
 	

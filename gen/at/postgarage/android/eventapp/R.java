@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package net.strictlybeats.android.eventapp;
+package at.postgarage.android.eventapp;
 
 public final class R {
     public static final class attr {
@@ -17,8 +17,7 @@ public final class R {
         public static final int main=0x7f030000;
     }
     public static final class string {
-        public static final int app_name=0x7f050001;
-        public static final int hello=0x7f050000;
+        public static final int app_name=0x7f050000;
     }
     public static final class xml {
         public static final int plugins=0x7f040000;

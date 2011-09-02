@@ -1,4 +1,4 @@
-package net.strictlybeats.android.eventapp;
+package at.postgarage.android.eventapp;
 
 import android.os.Bundle;
 
