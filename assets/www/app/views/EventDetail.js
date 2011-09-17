@@ -26,6 +26,12 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 	    ]},
     ],
     
+    listeners: {
+    	show: function() {
+    		app.views.eventDetail.setSize(window.innerWidth, window.innerHeight);
+    	},
+    },
+    
     initComponent: function () {
     	app.views.EventDetail.superclass.initComponent.apply(this, arguments);
     	
