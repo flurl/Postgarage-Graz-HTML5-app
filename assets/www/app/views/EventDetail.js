@@ -56,7 +56,8 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 	                ui: 'action',
 	                listeners: {
 	                    'tap': function () {
-							app.showActionsheet(app.views.eventDetail.actionSheet);
+							//app.showActionsheet(app.views.eventDetail.actionSheet);
+							app.views.eventDetail.share();
 	                    }
 	                }
 	            }
@@ -82,12 +83,7 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 	            text: 'Share',
 	            listeners: {
                     'tap': function(){
-                    	var currData = app.views.eventDetail.currentRecord.data;
-                    	window.plugins.share.show(
-                    		{subject: currData.title, text: encodeURI(currData.link)}, 
-                    		function(args){}, 
-                    		function(args){}
-                    	);
+                    	app.views.eventDetail.share();
                     	app.hideActionsheet();
                     }
                 },
@@ -160,5 +156,14 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 	    toolbar.setTitle(Ext.util.Format.ellipsis(record.get('title'), 20));
 	    
 	    this.scroller.scrollTo({'x': 0, 'y': 0}, true);
+	},
+	
+	share: function() {
+		var currData = app.views.eventDetail.currentRecord.data;
+    	window.plugins.share.show(
+    		{subject: currData.title, text: encodeURI(currData.link)}, 
+    		function(args){}, 
+    		function(args){}
+    	);
 	},
 });
