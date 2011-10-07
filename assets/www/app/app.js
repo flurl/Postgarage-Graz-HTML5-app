@@ -295,6 +295,11 @@ Ext.regApplication('app', {
 	CONF: {
 		'icon_small': 'images/logo.png',
 		'store_page_size': 5, //page size used in event store
+		//TODO: multiple sources not implemented yet
+		'news_sources': [
+			{name: 'Postgarage Events', 'url': 'http://www.postgarage.at/?id=26&type=102', type: 'json'},
+		],
+		'store_page_param': 'tx_ttnews[pointer]',
 	},
 	
 	loadConfig: function() {

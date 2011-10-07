@@ -60,10 +60,18 @@ app.stores.events = new Ext.data.Store({
 	clearOnPageLoad: false,
 	autoLoad: false,
 	pageSize: app.CONF.store_page_size,
+	listeners: {
+		//add the expected parameter for tt_news to the request
+		beforeload: function(store, operation) {
+			operation.params = operation.params || {};
+			//the store counts from 1, tt_news counts from 0
+	        operation.params[app.CONF.store_page_param] = store.currentPage - 1;
+	    },
+	},
 	proxy: {
 		timeout: 2000,
 	    type: 'ajax',
-	    url : 'http://www.postgarage.at/api/events.php?what=FORTH',
+	    url : app.CONF.news_sources[0].url,
 	    reader: {
 	        type: 'json',
 	        root: 'events',
