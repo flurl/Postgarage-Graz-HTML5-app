@@ -135,6 +135,7 @@ app.views.EventDetail = Ext.extend(Ext.Panel, {
 				flyerBtnContainer.add({
 					xtype: 'button', 
 					text: 'Flyer',
+					cls: 'flyer_btn',
 					listeners: {'tap': function(){
 								            app.viewstack.push('showImage', {'image': 'http://www.postgarage.at/uploads/media/'+file});
 					    				},
