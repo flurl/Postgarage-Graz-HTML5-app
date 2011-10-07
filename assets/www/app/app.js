@@ -14,6 +14,10 @@ Ext.regApplication('app', {
 		app.appendStyleSheet("lib/resources/css/" + app.themesData[app.CONF.theme].file, function(sheet) {
 	                            app.setActiveSheet(sheet);
 	                        });
+	                        
+		Ext.Anim.override({
+			disableAnimations:!app.CONF.animations
+        });
 			
 		if (!this.views.viewport) {
 			console.log('instantiating viewport');
@@ -30,7 +34,7 @@ Ext.regApplication('app', {
 	    this.viewstack.views.push({
 		            controller: app.controllers.events,
 		            action: 'index',
-		            animation: {type:'slide', direction:'right'}
+		            animation: {type:app.CONF.page_transition, direction:'right'}
 		        });
 		        
 		app.stores.events.load();
@@ -56,7 +60,7 @@ Ext.regApplication('app', {
 			app.viewstack.views.pop();
 			if (app.viewstack.views.length > 0) {
 				var request = app.viewstack.views[app.viewstack.views.length-1];
-				request.animation = {type:'slide', direction:'right'};
+				request.animation = {type:app.CONF.page_transition, direction:'right'};
 		        if (options != undefined) {
 		        	Ext.apply(request, options);
 		        }
@@ -70,7 +74,7 @@ Ext.regApplication('app', {
 			var request = {
 	            controller: app.controllers.events,
 	            'action': action,
-	            animation: {type:'slide', direction:'left'}
+	            animation: {type:app.CONF.page_transition, direction:'left'}
 	        };
 	        if (options != undefined) {
 	        	Ext.apply(request, options);
@@ -90,14 +94,20 @@ Ext.regApplication('app', {
 	
 	hideActionsheet: function() {
 		var as = app.activeActionSheets.pop();
-		if (as) {as.hide();}
+		if (as) {
+			//Workaround: when disableAnimations is set to true, the actionsheet doesn't
+			//hide correctly. So we set it allways to true
+			Ext.Anim.override({ disableAnimations:false });
+	        as.hide();
+	        //reset to config setting
+	        Ext.Anim.override({	disableAnimations:!Ext.Anim.disableAnimations });
+		}
 	},
 	
 	
 
 	//returns true, if running probably on a tablet device
 	isBigScreen: function() {
-		console.log('window height: '+window.innerHeight+'window width: '+window.innerWidth+'screen height: '+screen.height+'screen width: '+screen.width);
 		if (app.CONF.layout == 'auto') {        
 			if (screen.width > 600) {
 				return true;
@@ -142,12 +152,9 @@ Ext.regApplication('app', {
 
 	    Ext.iterate(app.themesData, function(id, theme) {
 	        regex = new RegExp(Ext.util.Format.escapeRegex(theme.file) + '$');
-			console.log('theme'+theme.id);
 	        for (j = 0,subLn = styleSheets.length; j < subLn; j++) {
 	            origsheet = styleSheets[j];
-				console.log('href'+origsheet.href);
 	            if (origsheet.href && origsheet.href.search(regex) !== -1) {
-	            	console.log('found');
 	                themeSheets[theme.id] = origsheet;
 	                app.activeSheet = origsheet;
 	                break;
@@ -278,6 +285,16 @@ Ext.regApplication('app', {
 	                },
 		        },
 		        {
+		            text: 'Toggle Page Transitions',
+		            listeners: {
+	                    'tap': function(){
+	                    	app.hideActionsheet();
+	                    	app.updateConfig({animations: !app.CONF.animations})
+					        app.mainLaunch();
+	                    }
+	                },
+		        },
+		        {
 		            text: 'Cancel',
 		            ui  : 'decline',
 		            listeners: {
@@ -300,6 +317,8 @@ Ext.regApplication('app', {
 			{name: 'Postgarage Events', 'url': 'http://www.postgarage.at/?id=26&type=102', type: 'json'},
 		],
 		'store_page_param': 'tx_ttnews[pointer]',
+		'page_transition': 'slide',
+		//'page_transition': false,
 	},
 	
 	loadConfig: function() {
@@ -318,7 +337,7 @@ Ext.regApplication('app', {
 		app.clearConfig();
     	var s = app.stores.config;
     	s.load();
-    	s.add({id: 1, layout: 'auto', theme: 'sencha', });
+    	s.add({id: 1, layout: 'auto', theme: 'sencha', 'animations': true, });
     	s.sync();
 	},
 	

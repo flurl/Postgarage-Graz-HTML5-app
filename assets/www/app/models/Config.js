@@ -14,6 +14,11 @@ app.models.Config = Ext.regModel('app.models.Config', {
 			type: 'string',
 			defaultValue: 'sencha',
 		},
+		{
+			name: 'animations',
+			type: 'boolean',
+			defaultValue: true,
+		},
 	],
 	proxy: {
 	    type: 'localstorage',

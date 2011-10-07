@@ -1,3 +1,9 @@
+body {
+background-image: url(../images/splashscreen.jpg);
+background-position: center center;
+background-repeat: no-repeat;
+}
+
 .x-list.events-list .x-list-item {
 	display: block;
 }

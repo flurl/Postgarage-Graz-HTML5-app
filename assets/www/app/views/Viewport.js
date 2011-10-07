@@ -66,7 +66,6 @@
 		    } else {
 		    	console.log('viewport setupLayout 2');
 		    	this.layout = 'card';
-		    	this.cardSwitchAnimation = 'slide';
 		    	
 		    	//put instances of cards into viewport
 		        Ext.apply(this, {

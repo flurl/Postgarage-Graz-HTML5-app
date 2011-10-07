@@ -5791,29 +5791,23 @@ Ext.data.Types = new function() {
         DATE: {
             convert: function(v) {
                 var df = this.dateFormat;
-                console.log('DATE.convert: v:'+v+' df:'+df);
                 if (!v) {
                     return null;
                 }
-                console.log('BP1');
                 if (Ext.isDate(v)) {
                     return v;
                 }
-                console.log('BP2');
                 if (df) {
                     if (df == 'timestamp') {
                         return new Date(v*1000);
                     }
-                    console.log('BP3');
                     if (df == 'time') {
                         return new Date(parseInt(v, 10));
                     }
-                    console.log('BP4');
                     return Date.parseDate(v, df);
                 }
                 
                 var parsed = Date.parse(v);
-                console.log('BP1 parsed:'+parsed);
                 return parsed ? new Date(parsed) : null;
             },
             sortType: st.asDate,
@@ -28849,12 +28843,6 @@ Ext.layout.Layout = Ext.extend(Object, {
 
         for (; i < ln; i++) {
             item = items[i];
-            try {
-            	//alert('item: '+app.varDump(item, 1)+' rendered'+item.rendered);
-            	console.log(item.id+item.xtype+item.title+item.rendered+item.cls);
-            	//for (key in item) console.log(key);
-            } catch (e) {console.log(e);}
-            
             if (item && !item.rendered) {
                 this.renderItem(item, i, target);
             }
