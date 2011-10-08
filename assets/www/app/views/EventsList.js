@@ -80,7 +80,12 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
 	                ui: 'action',
 	                listeners: {
 	                    'tap': function () {
-							app.showActionsheet(app.actionSheets.settings);
+							//the settings panel is instantiated here to save resources if not needed
+							if (!app.views.settings) {
+								app.views.settings = new app.views.Settings();
+							}
+							console.log('settings');
+							app.views.settings.show();
 	                    }
 	                }
 	            }

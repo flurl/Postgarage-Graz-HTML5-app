@@ -176,135 +176,6 @@ Ext.regApplication('app', {
             'postgarage': {id: 'postgarage', name: 'Postgarage', file: 'postgarage.css'},
      },
      
-     
-     
-
-	/*********************
-	* Global action sheets
-	**********************/
-	actionSheets: {
-		'settings': new Ext.ActionSheet({
-		    items: [
-		        {
-		            text: 'Clear Config',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.clearConfig();	                    	
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Auto Layout',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({layout: 'auto'})
-	                    	app.mainLaunch();	                    	
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Tablet Layout',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({layout: 'big'});
-	                    	app.mainLaunch();                    	
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Phone Layout',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({layout: 'small'});
-	                    	app.mainLaunch();
-	                    	                	
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Cupertino Theme',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({theme: 'apple'});
-	                    	app.appendStyleSheet("lib/resources/css/" + app.themesData['apple'].file, function(sheet) {
-	                            app.setActiveSheet(sheet);
-	                        });
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Mountain View Theme',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({theme: 'android'});
-	                    	app.appendStyleSheet("lib/resources/css/" + app.themesData['android'].file, function(sheet) {
-	                            app.setActiveSheet(sheet);
-	                        });
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Toronto Theme',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({theme: 'blackberry'});
-	                    	app.appendStyleSheet("lib/resources/css/" + app.themesData['blackberry'].file, function(sheet) {
-	                            app.setActiveSheet(sheet);
-	                        });
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Sencha Theme',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({theme: 'sencha'});
-	                    	app.appendStyleSheet("lib/resources/css/" + app.themesData['sencha'].file, function(sheet) {
-	                            app.setActiveSheet(sheet);
-	                        });
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Postgarage Theme',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({theme: 'postgarage'});
-	                    	app.appendStyleSheet("lib/resources/css/" + app.themesData['postgarage'].file, function(sheet) {
-	                            app.setActiveSheet(sheet);
-	                        });
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Toggle Page Transitions',
-		            listeners: {
-	                    'tap': function(){
-	                    	app.hideActionsheet();
-	                    	app.updateConfig({animations: !app.CONF.animations})
-					        app.mainLaunch();
-	                    }
-	                },
-		        },
-		        {
-		            text: 'Cancel',
-		            ui  : 'decline',
-		            listeners: {
-	                    'tap': function(){app.hideActionsheet();}
-	                },
-		        },
-		    ]
-		}),
-	},
-	
 	
 	/******************
 	* App Configuration
@@ -337,7 +208,7 @@ Ext.regApplication('app', {
 		app.clearConfig();
     	var s = app.stores.config;
     	s.load();
-    	s.add({id: 1, layout: 'auto', theme: 'sencha', 'animations': true, });
+    	s.add({id: 1, layout: 'auto', theme: 'postgarage', 'animations': true, });
     	s.sync();
 	},
 	
