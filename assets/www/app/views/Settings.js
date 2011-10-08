@@ -90,10 +90,13 @@ app.views.Settings = Ext.extend(Ext.form.FormPanel, {
     listeners: {
     	show: function() {
     		var view = app.views.settings;
-    		view.setSize(window.innerWidth-100, window.innerHeight-100);
+    		view.adjustSize();
     		view.CONF = app.CONF;
-    		app.views.settings.setupForm();
-    		app.views.settings.restartRequired = false;
+    		view.setupForm();
+    		view.restartRequired = false;
+    	},
+    	orientationchange: function() {
+    		app.views.settings.adjustSize();
     	},
     },
 	
@@ -101,6 +104,10 @@ app.views.Settings = Ext.extend(Ext.form.FormPanel, {
 	* custom properties
 	**********************************/
 	restartRequired: false,
+	
+	adjustSize: function() {
+		app.views.settings.setSize(window.innerWidth-100, window.innerHeight-100);
+	},
 	
 	setupForm: function() {
 		var c = app.CONF;
