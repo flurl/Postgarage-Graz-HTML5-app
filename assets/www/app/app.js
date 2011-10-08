@@ -122,12 +122,17 @@ Ext.regApplication('app', {
 	floatingPanelsStack: [],
 	showFloatingPanel: function(panel) {
 		app.floatingPanelsStack.push(panel);
+		//Workaround: when disableAnimations is set to true, the selectfields
+		//on the settings panel didn't work correctly
+		Ext.Anim.override({ disableAnimations:false });
 		panel.show();
 	},
 	
 	hideFloatingPanel: function() {
 		var panel = app.floatingPanelsStack.pop();
 		panel.hide();
+		//reset to config setting
+		Ext.Anim.override({	disableAnimations:!Ext.Anim.disableAnimations });
 	},
 	
 
