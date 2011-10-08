@@ -67,7 +67,7 @@ app.views.Settings = Ext.extend(Ext.form.FormPanel, {
                     ui: 'cancel',
                     handler: function() {
                     	app.initConfig();
-                        app.views.settings.hide();
+                        app.hideFloatingPanel();
                         app.mainLaunch();
                     }
                 },
@@ -77,7 +77,7 @@ app.views.Settings = Ext.extend(Ext.form.FormPanel, {
                     ui: 'confirm',
                     handler: function() {
                     	app.views.settings.updateConfig();
-                    	app.views.settings.hide();
+                    	app.hideFloatingPanel();
                     	if (app.views.settings.restartRequired) {
                     		app.mainLaunch();
                     	}

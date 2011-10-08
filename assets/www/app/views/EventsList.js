@@ -84,8 +84,7 @@ app.views.EventsList = Ext.extend(Ext.Panel, {
 							if (!app.views.settings) {
 								app.views.settings = new app.views.Settings();
 							}
-							console.log('settings');
-							app.views.settings.show();
+							app.showFloatingPanel(app.views.settings);
 	                    }
 	                }
 	            }

@@ -44,11 +44,18 @@ Ext.regApplication('app', {
     
     handleBackButton: function() {
     	console.log('Backbutton');
-    	if (app.activeActionSheets.length == 0) {
-    		app.viewstack.pop();
-    	} else {
+    	
+    	if (app.floatingPanelsStack.length != 0) {
+    		app.hideFloatingPanel();
+    		return;
+    	}    	
+    	
+    	if (app.activeActionSheets.length != 0) {
     		app.hideActionsheet();
+    		return;
     	}
+    	
+    	app.viewstack.pop();
     	
     },
     
@@ -84,8 +91,10 @@ Ext.regApplication('app', {
 		}	
 	},
 	
-	
-	//keep track of used actionsheets for handling them in the backbutton handler
+	/*****************************************
+	* keep track of used actionsheets for 
+	* handling them in the backbutton handler
+	******************************************/ 
 	activeActionSheets: [],
 	showActionsheet: function(as) {
 		app.activeActionSheets.push(as);
@@ -104,6 +113,22 @@ Ext.regApplication('app', {
 		}
 	},
 	
+	
+	
+	/*****************************************
+	* keep track of display floating panels for 
+	* handling them in the backbutton handler
+	******************************************/	
+	floatingPanelsStack: [],
+	showFloatingPanel: function(panel) {
+		app.floatingPanelsStack.push(panel);
+		panel.show();
+	},
+	
+	hideFloatingPanel: function() {
+		var panel = app.floatingPanelsStack.pop();
+		panel.hide();
+	},
 	
 
 	//returns true, if running probably on a tablet device
