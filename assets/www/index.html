@@ -29,11 +29,29 @@
 	<script type="text/javascript" src="plugins/share.js"></script>
 	
 	<script type="text/javascript">
-		document.addEventListener("deviceready", function(){
-			/*if (window['app'] != undefined) console.log('deviceready: '+this.views+'***'+window['app'].views);
-			else console.log('deviceready: app not defined');*/
-			app.mainLaunch;
-			}, false);
+		document.addEventListener("deviceready", onDeviceReady, false);
+			
+		function onDeviceReady() {
+			var body = document.getElementById('app_body');
+			var w = screen.width;
+			var suffix = '220';
+			console.log('width: '+w);
+			
+			if (w > 780) {
+				suffix = 780;
+			} else if (w > 700) {
+				suffix = 700;
+			} else if (w > 620) {
+				suffix = 620;
+			} else if (w > 460) {
+				suffix = 460;
+			} else if (w > 300) {
+				suffix = 300;
+			}
+	
+			body.style.backgroundImage = 'url(images/splashscreen_'+suffix+'.png)';
+			//app.mainLaunch;
+		}
 			
 			
 			function print_r(x, max, sep, l) {
@@ -97,6 +115,6 @@ var_dump = print_r;
 	
 </head>
 
-<body>
+<body id="app_body">
 </body>
 </html>
