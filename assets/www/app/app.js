@@ -5,9 +5,7 @@ Ext.regApplication('app', {
         this.mainLaunch();
     },
     mainLaunch: function() {
-    	console.log('mainLaunch 1'+this.views+'***'+window['app'].views);
         if (!device || !this.launched) {return;}
-        console.log('mainLaunch 2'+this.views+'***'+window['app'].views);
         window['app'] = this; //phonegap bug???
 		
 		app.loadConfig();
