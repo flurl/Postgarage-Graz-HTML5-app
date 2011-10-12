@@ -77,55 +77,62 @@ app.stores.events = new Ext.data.Store({
 	        root: 'events',
 	    },
 		listeners: {
-			exception:function () {
-		        console.log("I think we are offline");
-		        var store = app.stores.localEvents;
-		        var dv = app.views.eventsList.getComponent('eventsListDataView');
-		        dv.bindStore(store);
-		        if (app.isBigScreen()) {		        
-	    			var listener = function() {
-	    				app.views.eventsList.selectItem(0);
-	    				store.removeListener('load', listener)
-	    			}
-	    			store.addListener('load', listener);
-	    		}
-		        store.load();
-		        
-		        //offline indicator
-			    var btn = new Ext.Panel({
-		            x: 100,
-		            y: 100,
-		            floating: true,
-		            hideOnMaskTap: false,
-		            html: '<h1>Offline Mode</h1><p>Tap here to try going online</p>',
-		            baseCls: 'offline_indicator',
-		            listeners: {
-		            	//directly binding a click listener didn't work, so we do it here
-		            	afterrender: function(c){
-							c.el.on('click', function(){
-								console.log('offline clicked');
-								c.destroy();
-								app.mainLaunch();
-							});
-						},
-		            }
-		        })
-		        btn.show();
-		        //position it to the lower right corner
-		        var box = Ext.getBody().getBox(),
-		            size = btn.getSize();
-		        btn.setPosition(box.right - size.width, box.bottom - size.height);
-
-				//offline message
-		        var dlg = new Ext.Panel({
-				    floating: true,
-		            modal: true,
-		            centered: true,
-		            styleHtmlContent: true,
- 		            html: '<h1>Offline Mode</h1><p>You are seeing a cached copy of our events. This usually means that yout internet connection is not working.</p><p>You can not dowload more events or load the event images while offline.</p>',
-				});
-				dlg.show();
-		    },
+			exception:function (proxy, response, operation) {
+				//when a timeout occurs the exception is triggered twice 
+				//this doesn't happen e.g. in airplane mode, since then only one exception occurs
+				//the first time request.timedout = true and request.aborted = undefined
+				//the second time both properties are true
+				//we handle just the first exception
+				if (response.aborted != true) {
+			        console.log("I think we are offline"+var_dump(response,2));
+			        var store = app.stores.localEvents;
+			        var dv = app.views.eventsList.getComponent('eventsListDataView');
+			        dv.bindStore(store);
+			        if (app.isBigScreen()) {		        
+		    			var listener = function() {
+		    				app.views.eventsList.selectItem(0);
+		    				store.removeListener('load', listener)
+		    			}
+		    			store.addListener('load', listener);
+		    		}
+			        store.load();
+			        
+			        //offline indicator
+				    var btn = new Ext.Panel({
+			            x: 100,
+			            y: 100,
+			            floating: true,
+			            hideOnMaskTap: false,
+			            html: '<h1>Offline Mode</h1><p>Tap here to try going online</p>',
+			            baseCls: 'offline_indicator',
+			            listeners: {
+			            	//directly binding a click listener didn't work, so we do it here
+			            	afterrender: function(cmp){
+								cmp.el.on('click', function(){
+									cmp.destroy();
+									app.mainLaunch();
+								});
+							},
+			            }
+			        });
+			        btn.show();
+			       
+			        //position it to the lower right corner
+			        var box = Ext.getBody().getBox(),
+			            size = btn.getSize();
+			        btn.setPosition(box.right - size.width, box.bottom - size.height);
+	
+					//offline message
+			        var dlg = new Ext.Panel({
+					    floating: true,
+			            modal: true,
+			            centered: true,
+			            styleHtmlContent: true,
+	 		            html: '<h1>Offline Mode</h1><p>You are seeing a cached copy of our events. This usually means that yout internet connection is not working.</p><p>You can not dowload more events or load the event images while offline.</p>',
+					});
+					dlg.show();
+			    }
+			},
 		},
 	}
 });
