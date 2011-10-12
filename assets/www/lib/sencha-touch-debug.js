@@ -18591,9 +18591,11 @@ Ext.gesture.Gesture = Ext.extend(Object, {
                 gesture: this,
                 target: (e.target.nodeType == 3) ? e.target.parentNode: e.target
             });
-            
+
+			//workaround - see http://www.sencha.com/forum/showthread.php?120179-OPEN-702-Multiple-popus-cause-error-in-Ext.gesture.Gesture.fire()
+            var listenersCopy = listeners.slice(0);
             for (i = 0; i < ln; i++) {
-                listeners[i](e, args);
+                listenersCopy[i](e, args);
             }
         }
         
