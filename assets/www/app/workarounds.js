@@ -22,10 +22,6 @@ Ext.override(Ext.data.Connection, {
         var options = r.options,
             success = true,
             response;
-        console.log('onComplete'+r.options.url+'***'+var_dump(r, 3)+'***');
-        console.log(' ');
-        console.log(' ');
-        console.log(' ');
         
         //this is some kind of workaround
         //if xhr is not defined we set the status to 0
@@ -37,7 +33,6 @@ Ext.override(Ext.data.Connection, {
         }
 
         if ((status >= 200 && status < 300) || status == 304) {
-        	console.log('onComplete OK '+status);
             response = this.createResponse(r);
             this.fireEvent('requestcomplete', this, response, options);
             if (options.success) {
@@ -50,7 +45,6 @@ Ext.override(Ext.data.Connection, {
             }
         }
         else {
-        	console.log('onComplete NOK '+status);
             success = false;
             switch (status) {
             	case 0:  //workaround
@@ -61,11 +55,9 @@ Ext.override(Ext.data.Connection, {
                 case 12031:
                 case 12152:
                 case 13030:
-                	console.log('EXCEPTION');
                     response = this.createException(r);
                     break;
                 default:
-                	console.log('RESPONSE');
                     response = this.createResponse(r);
             }
             this.fireEvent('requestexception', this, response, options);
