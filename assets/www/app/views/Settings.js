@@ -51,6 +51,21 @@ app.views.Settings = Ext.extend(Ext.form.FormPanel, {
 	   			change: function() {app.views.settings.restartRequired = true;},
 	   		},
     	},
+    	{
+    		xtype: 'sliderfield',
+    		name: 'network_timeout',
+    		label: 'Network Timeout',
+            minValue: 1000,
+            maxValue: 30000,
+            listeners: {
+	   			change: function(slider, thumb, newVal, oldVal) {console.log('newVal'+newVal+'***'+app.stores.events.getProxy().timeout);app.stores.events.getProxy().timeout = newVal;},
+	   		},
+	   		plugins: [new Ext.ux.CustomSlider({
+				valueUnit: '$',
+				tooltipStyle: 'background-color: #AAA; text-align: center',
+				showSliderBothEndValue: false,
+			})],
+    	},
     ],
     
     dockedItems: [
@@ -114,6 +129,7 @@ app.views.Settings = Ext.extend(Ext.form.FormPanel, {
 		this.items.items[0].setValue(c.animations);
 		this.items.items[1].setValue(c.layout);
 		this.items.items[2].setValue(c.theme);
+		this.items.items[3].setValue(c.network_timeout);
 	},
 	
 	updateConfig: function() {
@@ -121,6 +137,7 @@ app.views.Settings = Ext.extend(Ext.form.FormPanel, {
 		c.animations = this.items.items[0].getValue();
 		c.layout = this.items.items[1].getValue();
 		c.theme = this.items.items[2].getValue();
+		c.network_timeout = this.items.items[3].getValue();
 		app.updateConfig(c);
 	}
 });

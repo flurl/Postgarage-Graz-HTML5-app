@@ -217,7 +217,7 @@ Ext.regApplication('app', {
 		],
 		'store_page_param': 'tx_ttnews[pointer]',
 		'page_transition': 'slide',
-		//'page_transition': false,
+		'network_timeout': 3000,
 	},
 	
 	loadConfig: function() {

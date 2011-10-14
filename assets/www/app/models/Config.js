@@ -19,6 +19,11 @@ app.models.Config = Ext.regModel('app.models.Config', {
 			type: 'boolean',
 			defaultValue: true,
 		},
+		{
+			name: 'network_timeout',
+			type: 'int',
+			defaultValue: 3000,
+		},
 	],
 	proxy: {
 	    type: 'localstorage',

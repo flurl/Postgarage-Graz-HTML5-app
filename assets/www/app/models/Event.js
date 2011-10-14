@@ -69,7 +69,7 @@ app.stores.events = new Ext.data.Store({
 	    },
 	},
 	proxy: {
-		timeout: 2000,
+		timeout: app.CONF.network_timeout,
 	    type: 'ajax',
 	    url : app.CONF.news_sources[0].url,
 	    reader: {
@@ -84,7 +84,7 @@ app.stores.events = new Ext.data.Store({
 				//the second time both properties are true
 				//we handle just the first exception
 				if (response.aborted != true) {
-			        console.log("I think we are offline"+var_dump(response,2));
+			        console.log("I think we are offline");
 			        var store = app.stores.localEvents;
 			        var dv = app.views.eventsList.getComponent('eventsListDataView');
 			        dv.bindStore(store);
@@ -140,6 +140,13 @@ app.stores.events = new Ext.data.Store({
 app.stores.events.on('load', function (store) {
     store.snapshot = store.data;
 });
+
+//make the timeout field of the store a property so that the config value is always used 
+var proxy = app.stores.events.getProxy();
+Object.defineProperty(proxy, 'timeout', { get : function(){ return app.CONF.network_timeout; },  
+			                               set : function(newValue){},  
+			                               enumerable : true,  
+			                               configurable : true});
 
 
 

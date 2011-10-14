@@ -33,6 +33,15 @@ background-repeat: no-repeat;
 	font-weight: bold;
 }
 
+/*custom slider*/
+.x-slider-value-text {
+	overflow:hidden;
+	position:absolute;
+	z-index:9999;
+	color:rgb(255,55,55); 
+}
+
+
 .offline_indicator {
 background-color: rgba(255, 255, 255, 0.5);
 padding: 6px;
