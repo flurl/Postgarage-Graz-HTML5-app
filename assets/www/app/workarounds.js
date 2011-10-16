@@ -83,3 +83,19 @@ Ext.override(Ext.data.Connection, {
         delete this.requests[r.id];
     }
 });
+
+//calling updateBoundary() fixes wrong positioning of thumb
+Ext.override(Ext.form.Slider, {
+	getPixelValue: function(value, thumb) {
+    	thumb.dragObj.updateBoundary();
+        var trackWidth = thumb.dragObj.offsetBoundary.right,
+            range = this.maxValue - this.minValue,
+            ratio;
+		console.log('getpixelvalue override: '+trackWidth+'***'+this.trackWidth);
+        this.trackWidth = (trackWidth > 0) ? trackWidth : this.trackWidth;
+        ratio = this.trackWidth / range;
+
+        return (ratio * (value - this.minValue));
+    },
+	
+});
