@@ -7,6 +7,11 @@ Ext.ux.CustomSlider = Ext.extend(Object, {
     showSliderBothEndValue: true,
     sliderEndValuePos: 'under',
     sliderEndValueStyle: 'color: green',
+    displaySliderValue: true,
+    hideDelay: 1000, //time in ms after which the tooltip should be hidden on dragend 
+    
+    tooltipHideTimer: null,
+    parent: null,
 
     constructor: function(config){
         Ext.apply(this, config);
@@ -14,59 +19,93 @@ Ext.ux.CustomSlider = Ext.extend(Object, {
     },
     init: function(parent) {
         var me = this;
+        this.parent = parent;
         parent.on({
             drag: {
                 fn: function(slider, thumb, value) {
-                    me.sliderTooltip.setWidth(value.length * 1.5);
-                    me.sliderTooltip.showBy(thumb);
-                    me.sliderTooltip.el.setHTML(value);
+                    me.showTooltip(value);
                 }
             },
             dragend: {
                 fn: function (slider, thumb, value) {
-                    me.sliderTooltip.hide();
-                    me.showSliderValue(this.valueTextEl, slider, thumb, value);
+                	me.hideTooltip();
                 }
             },
             afterrender: {
                 fn: function(component) {
-                    me.createSliderToolTip();
                     if (me.showSliderBothEndValue) me.showSliderEndValue(this);
                     if (!this.valueTextEl) {
                         this.valueTextEl = component.getEl().createChild({
                             cls: me.valueTextClass
                         });
                     }
+
                 }
-            }
+            },
+            change: function(slider, thumb, newValue, oldValue) {
+            	me.showTooltip(newValue);
+            	me.hideTooltip();
+            },
         });
     },
+    
+    showTooltip: function(value) {
+    	var thumb = this.parent.getThumb();
+    	var pos = [thumb.el.getXY()[0], thumb.el.getXY()[1]];
+    	var width = value.toString().length * 20;  //number of digits
+        
+        this.createSliderToolTip();
+        
+        //clear hide timer
+        if (this.tooltipHideTimer !== null) {
+        	clearTimeout(this.tooltipHideTimer);
+        	this.tooltipHideTimer = null;
+        }
+        
+        this.sliderTooltip.hide();
+        this.sliderTooltip.setWidth(width);
+        this.sliderTooltip.x = (pos[0]-width-50);
+        this.sliderTooltip.y = (pos[1]);
+        this.sliderTooltip.show();
+        this.sliderTooltip.el.setHTML(value);
+    },
+    
+    hideTooltip: function() {
+    	var me = this; 
+    	me.tooltipHideTimer = setTimeout( function() {
+    		me.sliderTooltip.hide();
+        	//me.showSliderValue(me.valueTextEl, slider, thumb, value);
+    	}, me.hideDelay);
+    },
+    
     showSliderValue: function(valueTextEl, slider, thumb, value) {
-        if (this.valueUnitPos == 'before') {
-            valueTextEl.setHTML(this.valueUnit + value);
-        } else {
-            if (parseFloat(value) > 1) {
-                valueTextEl.setHTML(value + '&amp;nbsp' + this.valueUnit + 's');
-            } else {
-                valueTextEl.setHTML(value + '&amp;nbsp' + this.valueUnit);
-            }
-        }
-        
-        var left = thumb.getEl().getX(),
-        thumbWidth = thumb.getEl().getWidth(),
-        thumbHeight = thumb.getEl().getHeight(),
-        top = thumbHeight / 2,
-        textWidth = valueTextEl.getWidth(),
-        sliderLength = slider.getWidth();
-        
-        if (left > sliderLength - textWidth - thumbWidth) {
-            left = left - textWidth - thumbWidth / 2;
-        } else {
-            left = left + thumbWidth / 2;
-        }
-
-        valueTextEl.setLeft(left);
-        valueTextEl.setTop(top);        
+    	if (this.displaySliderValue) {
+	        if (this.valueUnitPos == 'before') {
+	            valueTextEl.setHTML(this.valueUnit + value);
+	        } else {
+	            if (parseFloat(value) > 1) {
+	                valueTextEl.setHTML(value + '&amp;nbsp' + this.valueUnit + 's');
+	            } else {
+	                valueTextEl.setHTML(value + '&amp;nbsp' + this.valueUnit);
+	            }
+	        }
+	        
+	        var left = thumb.getEl().getX(),
+	        thumbWidth = thumb.getEl().getWidth(),
+	        thumbHeight = thumb.getEl().getHeight(),
+	        top = thumbHeight / 2,
+	        textWidth = valueTextEl.getWidth(),
+	        sliderLength = slider.getWidth();
+	        
+	        if (left > sliderLength - textWidth - thumbWidth) {
+	            left = left - textWidth - thumbWidth / 2;
+	        } else {
+	            left = left + thumbWidth / 2;
+	        }
+	
+	        valueTextEl.setLeft(left);
+	        valueTextEl.setTop(top);        
+		}
     },
     showSliderEndValue: function(slider) {
         var sliderPosX = slider.getThumb().getEl().getX();
@@ -103,7 +142,8 @@ Ext.ux.CustomSlider = Ext.extend(Object, {
                 floating: true,
                 height: 30,
                 styleHtmlContent: true,
-                style: this.tooltipStyle
+                style: this.tooltipStyle,
+                hideOnMaskTap: false,
             });
         }   
     }
